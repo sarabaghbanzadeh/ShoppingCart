@@ -1,0 +1,6 @@
+ShoppingCart/bin
+/*.metadata/*
+.recommenders/*
+.classpath
+.project
+ShoppingCart/.settings/*
