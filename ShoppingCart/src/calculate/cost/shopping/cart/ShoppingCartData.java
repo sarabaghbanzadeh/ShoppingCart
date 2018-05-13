@@ -4,10 +4,10 @@ public class ShoppingCartData {
 	
 	private String size;
 	private double price;
-	private int tax_code;
+	private String tax_code;
 	
 	
-	public ShoppingCartData(String size, double price, int tax_code) {
+	public ShoppingCartData(String size, double price, String tax_code) {
 		
 		this.size = size;
 		this.price = price;
@@ -31,11 +31,11 @@ public class ShoppingCartData {
 		this.price = price;
 	}
 	
-	public int getTax_code() {
+	public String getTax_code() {
 		return tax_code;
 	}
 	
-	public void setTax_code(int tax_code) {
+	public void setTax_code(String tax_code) {
 		this.tax_code = tax_code;
 	}
 }

@@ -60,12 +60,12 @@ public class JsonParserShoppingData {
 			JSONArray p_variants = (JSONArray) product.get("variants");
 			Vector<ShoppingCartData> cur_variants = new Vector<ShoppingCartData>();
 			
-			for (Object obj_var : JsonArray) {
+			for (Object obj_var : p_variants) {
 				
 				JSONObject variant = (JSONObject) obj_var;
 				String size = (String) variant.get("size");
 				double price = (Double) variant.get("price");
-				int tax_code = (Integer) variant.get("tax_code");
+				String tax_code = (String) variant.get("tax_code");
 				ShoppingCartData cur_variant = new ShoppingCartData(size, price, tax_code);
 				
 				cur_variants.add(cur_variant);
@@ -109,6 +109,37 @@ public class JsonParserShoppingData {
 	
 	public void setTaxRates(HashMap<String, TaxRate> taxRates) {
 		this.taxRates = taxRates;
+	}
+	
+	
+	public Vector<ShoppingCart> parseShoppingCart(String input_fileName) {
+		
+		Vector<ShoppingCart> toReturn = new Vector<ShoppingCart>();
+		JSONParser parser = new JSONParser();
+		JSONArray JsonArray;
+		
+		try {
+			JsonArray = (JSONArray) parser.parse(new FileReader(input_fileName));
+		
+			for (Object obj : JsonArray) 
+			{
+				JSONObject data = (JSONObject) obj;
+				String product = (String) data.get("product");
+				int variant = (Integer) data.get("variant");
+				int quantity = (Integer) data.get("quantity");
+				
+				ShoppingCart cur_data = new ShoppingCart(product, variant, quantity);
+				toReturn.add(cur_data);
+			}
+			
+			return toReturn;
+			
+		} catch (Exception e) {
+			System.out.println("Error while parsing the input data");
+			e.printStackTrace();
+			
+			return toReturn;
+		}
 	}
 
 }
