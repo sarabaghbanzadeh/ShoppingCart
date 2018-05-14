@@ -54,7 +54,7 @@ public class JsonParserShoppingData {
 		for (Object obj : JsonArray) 
 		{
 			JSONObject product = (JSONObject) obj;
-			String id = (String) product.get("id");
+			String id = String.valueOf(product.get("id"));
 			String name = (String) product.get("name");
 			
 			JSONArray p_variants = (JSONArray) product.get("variants");
@@ -63,9 +63,9 @@ public class JsonParserShoppingData {
 			for (Object obj_var : p_variants) {
 				
 				JSONObject variant = (JSONObject) obj_var;
-				String size = (String) variant.get("size");
+				String size = String.valueOf(variant.get("size"));
 				double price = (Double) variant.get("price");
-				String tax_code = (String) variant.get("tax_code");
+				String tax_code = String.valueOf(variant.get("tax_code"));
 				ShoppingCartData cur_variant = new ShoppingCartData(size, price, tax_code);
 				
 				cur_variants.add(cur_variant);
@@ -84,9 +84,9 @@ public class JsonParserShoppingData {
 		for (Object obj : JsonArray) 
 		{
 			JSONObject tax_data = (JSONObject) obj;
-			String code = (String) tax_data.get("code");
+			String code = String.valueOf(tax_data.get("code"));
 			String name = (String) tax_data.get("name");
-			double rate = (Double) tax_data.get("rate");
+			double rate = Double.valueOf(String.valueOf(tax_data.get("rate")));
 			
 			TaxRate cur_taxData = new TaxRate(name, rate);
 			this.taxRates.put(code, cur_taxData);
@@ -124,9 +124,9 @@ public class JsonParserShoppingData {
 			for (Object obj : JsonArray) 
 			{
 				JSONObject data = (JSONObject) obj;
-				String product = (String) data.get("product");
-				int variant = (Integer) data.get("variant");
-				int quantity = (Integer) data.get("quantity");
+				String product = String.valueOf(data.get("product"));
+				int variant = Integer.parseInt(String.valueOf(data.get("variant")));
+				int quantity = Integer.parseInt(String.valueOf(data.get("quantity")));
 				
 				ShoppingCart cur_data = new ShoppingCart(product, variant, quantity);
 				toReturn.add(cur_data);

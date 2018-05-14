@@ -5,13 +5,15 @@ public class ReceiptTaxData {
 	private String description;
 	private String code_orig;
 	private String code_des;
+	private double tax_rate;
 	
 	
-	public ReceiptTaxData(String description, String code_orig, String code_des) {
+	public ReceiptTaxData(String description, String code_orig, String code_des, double tax_rate) {
 		super();
 		this.description = description;
 		this.code_orig = code_orig;
 		this.code_des = code_des;
+		this.tax_rate = tax_rate;
 	}
 	
 	
@@ -38,5 +40,13 @@ public class ReceiptTaxData {
 
 	public void setCode_des(String code_des) {
 		this.code_des = code_des;
+	}
+
+	public double getTax_rate() {
+		return tax_rate;
+	}
+
+	public void setTax_rate(double tax_rate) {
+		this.tax_rate = tax_rate;
 	}
 }
