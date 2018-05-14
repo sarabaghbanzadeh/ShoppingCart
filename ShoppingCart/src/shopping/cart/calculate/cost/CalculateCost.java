@@ -17,14 +17,14 @@ public class CalculateCost {
 	private static HashMap<String, Product> products;
 	private static HashMap<String, TaxRate> taxRates;
 	private static String product_file_name = "products.json";
-	private static String taxt_file_name = "taxRate.json";
+	private static String tax_file_name = "taxRate.json";
 	private static String input_file_name = "input.json";
 	private static Vector<ReceiptProfileData> productData = new Vector<ReceiptProfileData>();
 	private static Vector<ReceiptTaxData> taxData = new Vector<ReceiptTaxData>();
 
 	public static void main(String[] args) {
 		
-		JsonParserShoppingData json_data = new JsonParserShoppingData(product_file_name, taxt_file_name);
+		JsonParserShoppingData json_data = new JsonParserShoppingData(product_file_name, tax_file_name);
 		
 		products = json_data.getProducts();
 		taxRates = json_data.getTaxRates();
@@ -59,9 +59,9 @@ public class CalculateCost {
 			
 			TaxRate cur_tax_rate = taxRates.get(cur_tax_code);
 			String cur_tax_description = cur_tax_code + "-" + cur_tax_rate.getName();
-			
-			ReceiptTaxData tax_receipt_data = new ReceiptTaxData(cur_tax_description, cur_tax_code, (cur_tax_rate.getRate()*100 + "%"), cur_tax_rate.getRate());
-			if (!taxData.contains(tax_receipt_data))
+			Double code_description = Double.parseDouble(String.valueOf((cur_tax_rate.getRate()*100)));
+			ReceiptTaxData tax_receipt_data = new ReceiptTaxData(cur_tax_description, cur_tax_code, code_description.intValue()+"%", cur_tax_rate.getRate());
+			if (!contains(taxData, tax_receipt_data))
 				taxData.add(tax_receipt_data);
 			
 			if (taxValues.containsKey(cur_tax_code))
@@ -76,6 +76,18 @@ public class CalculateCost {
 	}
 	
 	
+	private static boolean contains(Vector<ReceiptTaxData> tax_data, ReceiptTaxData tax_receipt_data) 
+	{
+		for (ReceiptTaxData obj : tax_data) {
+			if (obj.getCode_des().equals(tax_receipt_data.getCode_des()) &&
+					obj.getDescription().equals(tax_receipt_data.getDescription()) &&
+					obj.getTax_rate() == tax_receipt_data.getTax_rate())
+				return true;
+		}
+		return false;
+	}
+
+
 	private static void printOutResult() 
 	{
 		System.out.println("==================================================================");
